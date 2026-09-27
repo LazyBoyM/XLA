@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.qa/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+Thumbs.db
+outputs/
+giam_mau_*/
+phan_doan_*/
+spectral_*/
+khuon_mat_*/
+tham_so_khuon_mat_*/
+hog_*/
