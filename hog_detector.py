@@ -1,5 +1,7 @@
 """Educational HOG + linear SVM face detector. No Haar proposals are used."""
 from functools import lru_cache
+from pathlib import Path
+import json
 import numpy as np
 import cv2
 from skimage import data, color
@@ -70,7 +72,24 @@ def nms(boxes, scores, iou_threshold=0.25):
 
 @lru_cache(maxsize=1)
 def trained_model():
-    """Train once per app session. User images never enter the training set."""
+    """Use portable numeric weights when bundled; desktop can train as fallback."""
+    path = Path(__file__).parent / 'models' / 'hog_svm.npz'
+    if path.is_file():
+        with np.load(path, allow_pickle=False) as saved:
+            coef = saved['coef'].copy()
+            intercept = float(saved['intercept'])
+            info = json.loads(str(saved['metadata']))
+        if coef.shape != (576,) or not np.isfinite(coef).all() or not np.isfinite(intercept):
+            raise RuntimeError('Mô hình HOG + SVM không hợp lệ.')
+        return coef, intercept, info
+    import os
+    if os.environ.get('VERCEL'):
+        raise RuntimeError('Thiếu models/hog_svm.npz. Hãy chạy scripts/prepare_model.py trước khi triển khai.')
+    return train_model()
+
+
+def train_model():
+    """Explicit offline training. User images never enter the training set."""
     dataset = data.lfw_subset().astype(np.float32)
     positive = list(dataset[:100]) + [np.fliplr(im) for im in dataset[:100]]
     negative = list(dataset[100:])

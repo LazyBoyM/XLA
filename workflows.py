@@ -33,7 +33,7 @@ class Experiment:
 
 
 def font(size):
-    for name in ("C:/Windows/Fonts/arial.ttf", "DejaVuSans.ttf"):
+    for name in (str(Path(__file__).parent / 'assets' / 'DejaVuSans.ttf'), "C:/Windows/Fonts/arial.ttf", "DejaVuSans.ttf"):
         try:
             return ImageFont.truetype(name, size)
         except OSError:

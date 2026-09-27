@@ -12,3 +12,7 @@ spectral_*/
 khuon_mat_*/
 tham_so_khuon_mat_*/
 hog_*/
+.vercel/
+.env
+.env.*
+!.env.example

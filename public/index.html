@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Lab — Nhóm 13</title>
+  <link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header><a class="brand" href="/" aria-label="Image Lab trang chủ"><span class="brand-mark">◩</span> Image Lab<span class="group">NHÓM 13</span></a><span class="header-note">Học máy trong xử lý ảnh</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">KHÁM PHÁ TỪNG ĐIỂM ẢNH</p><h1>Một bức ảnh.<br>Nhiều cách quan sát.</h1><p>Thử thuật toán, điều chỉnh tham số và so sánh kết quả trên ảnh của bạn.</p></div><div class="intro-aside"><strong>07</strong><span>phương pháp & thí nghiệm</span><p>K-means · Spectral · Haar · HOG · SVM</p></div></section>
+    <div class="workspace">
+      <aside class="controls">
+        <form id="form">
+          <fieldset><legend><span>01</span> Chọn ảnh</legend>
+            <label class="upload" id="dropzone" for="file"><span class="upload-symbol">＋</span><strong>Mở ảnh của bạn</strong><small>JPG, PNG, WebP · kéo thả hoặc chọn tệp</small><input id="file" type="file" accept="image/jpeg,image/png,image/webp"></label>
+            <button class="text-button" id="sample" type="button">Thử với ảnh mẫu ↗</button>
+            <p class="muted small" id="file-info">Chưa chọn ảnh.</p>
+          </fieldset>
+          <fieldset><legend><span>02</span> Chọn chức năng</legend><label class="sr-only" for="method">Chức năng</label><select id="method">
+            <option value="quantize">Giảm màu bằng K-means</option><option value="segment">Phân đoạn màu và vị trí</option><option value="spectral">So sánh K-means và Spectral</option><option value="faces">Phát hiện khuôn mặt và mắt</option><option value="face-parameters">So sánh tham số phát hiện mặt</option><option value="hog">Hiển thị đặc trưng HOG</option><option value="hog-svm">Phát hiện HOG + SVM và NMS</option>
+          </select><p class="method-help" id="method-help"></p></fieldset>
+          <fieldset><legend><span>03</span> Điều chỉnh tham số</legend><div id="params" class="params"></div></fieldset>
+          <button class="run" id="run" type="submit" disabled>Xử lý ảnh <span>→</span></button>
+          <p class="privacy">Ảnh được thu nhỏ tối đa 512 px và gửi đến máy chủ khi bấm xử lý. Ứng dụng không lưu ảnh tải lên.</p>
+        </form>
+      </aside>
+      <section class="stage">
+        <div class="section-heading"><h2>Ảnh đầu vào</h2><span class="subtle" id="dimensions">—</span></div>
+        <div class="original-wrap"><img id="original" alt="Ảnh đầu vào" hidden><div class="placeholder" id="placeholder"><span>◧</span><h3>Bắt đầu với một bức ảnh</h3><p>Chọn ảnh bên trái hoặc dùng ảnh mẫu để thử.</p></div></div>
+        <div class="status" id="status" role="status" aria-live="polite">Sẵn sàng khi bạn chọn ảnh.</div>
+        <section id="result-section" hidden>
+          <div class="section-heading result-heading"><div><p class="eyebrow">KẾT QUẢ THÍ NGHIỆM</p><h2 id="result-title"></h2></div><span class="timing" id="timing"></span></div>
+          <p class="small muted">Ảnh ghép trên một hàng ngang. Cuộn ngang để xem toàn bộ.</p>
+          <div class="comparison" tabindex="0" aria-label="Ảnh so sánh, có thể cuộn ngang"><img id="result" alt="Ảnh so sánh kết quả thuật toán"></div>
+          <div class="downloads"><button id="download-image" type="button">↓ Ảnh ghép PNG</button><button id="download-json" type="button">↓ Thông số JSON</button><button id="download-notes" type="button">↓ Mô tả kết quả</button></div>
+          <p id="description"></p><details><summary>Ảnh thành phần & thông tin thí nghiệm</summary><div id="panel-downloads" class="downloads"></div><p id="notes" class="small"></p><pre id="metadata"></pre></details>
+        </section>
+      </section>
+    </div>
+    <footer><span>Image Lab / Nhóm 13</span><span>Kết quả minh họa thuật toán, không phải phép đo độ chính xác.</span></footer>
+  </main>
+</body>
+</html>
