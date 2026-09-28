@@ -82,9 +82,6 @@ def trained_model():
         if coef.shape != (576,) or not np.isfinite(coef).all() or not np.isfinite(intercept):
             raise RuntimeError('Mô hình HOG + SVM không hợp lệ.')
         return coef, intercept, info
-    import os
-    if os.environ.get('VERCEL'):
-        raise RuntimeError('Thiếu models/hog_svm.npz. Hãy chạy scripts/prepare_model.py trước khi triển khai.')
     return train_model()
 
 
